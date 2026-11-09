@@ -24,6 +24,9 @@ abstract final class AppTheme {
     required TextTheme textTheme,
   }) {
     final isDark = scheme.brightness == Brightness.dark;
+    // Filled brand surfaces stay saturated in both modes. The scheme primary
+    // lightens in dark mode for readability, so these use the explicit tone.
+    final brandFill = isDark ? AppColors.primaryDark : AppColors.primary;
     final base = ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
@@ -40,16 +43,17 @@ abstract final class AppTheme {
       highlightColor: scheme.primary.withValues(alpha: 0.08),
       iconTheme: IconThemeData(color: scheme.onSurface, size: 22),
       appBarTheme: AppBarThemeData(
-        backgroundColor: scheme.primary,
-        foregroundColor: scheme.onPrimary,
+        backgroundColor: brandFill,
+        foregroundColor: AppColors.onPrimary,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 3,
         centerTitle: false,
-        iconTheme: IconThemeData(color: scheme.onPrimary, size: 22),
-        actionsIconTheme: IconThemeData(color: scheme.onPrimary, size: 22),
+        iconTheme: const IconThemeData(color: AppColors.onPrimary, size: 22),
+        actionsIconTheme:
+            const IconThemeData(color: AppColors.onPrimary, size: 22),
         titleTextStyle: textTheme.titleLarge?.copyWith(
-          color: scheme.onPrimary,
+          color: AppColors.onPrimary,
           fontWeight: FontWeight.w600,
         ),
         systemOverlayStyle:
@@ -99,8 +103,8 @@ abstract final class AppTheme {
         ),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: scheme.primary,
-        foregroundColor: scheme.onPrimary,
+        backgroundColor: brandFill,
+        foregroundColor: AppColors.onPrimary,
         elevation: 4,
         highlightElevation: 8,
         shape: RoundedRectangleBorder(
@@ -154,13 +158,13 @@ abstract final class AppTheme {
         ),
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: scheme.surfaceContainerHigh,
-        selectedColor: scheme.primary,
+        backgroundColor: isDark ? AppColors.surfaceContainerDark : Colors.white,
+        selectedColor: scheme.primaryContainer,
         disabledColor: scheme.surfaceContainer,
         side: BorderSide(color: borderColor),
-        labelStyle: textTheme.labelLarge,
+        labelStyle: textTheme.labelLarge?.copyWith(color: scheme.onSurface),
         secondaryLabelStyle: textTheme.labelLarge?.copyWith(
-          color: scheme.onPrimary,
+          color: scheme.onPrimaryContainer,
         ),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         shape: RoundedRectangleBorder(

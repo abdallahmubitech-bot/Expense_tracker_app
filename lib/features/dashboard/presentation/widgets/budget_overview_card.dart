@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../domain/entities/budget_summary.dart';
 
@@ -19,11 +20,11 @@ class BudgetOverviewCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: theme.colorScheme.primary,
+        color: AppColors.primary,
         borderRadius: BorderRadius.circular(24),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: theme.colorScheme.primary.withValues(alpha: 0.28),
+            color: AppColors.primaryDark.withValues(alpha: 0.28),
             blurRadius: 24,
             offset: const Offset(0, 10),
           ),
@@ -38,7 +39,7 @@ class BudgetOverviewCard extends StatelessWidget {
                 child: Text(
                   'Spent this month',
                   style: theme.textTheme.labelLarge?.copyWith(
-                    color: theme.colorScheme.onPrimary.withValues(alpha: 0.85),
+                    color: AppColors.onPrimary.withValues(alpha: 0.88),
                   ),
                 ),
               ),
@@ -54,7 +55,7 @@ class BudgetOverviewCard extends StatelessWidget {
           Text(
             Formatters.currency(summary.totalSpent),
             style: theme.textTheme.displaySmall?.copyWith(
-              color: theme.colorScheme.onPrimary,
+              color: AppColors.onPrimary,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -64,7 +65,7 @@ class BudgetOverviewCard extends StatelessWidget {
             '${summary.expenseCount == 1 ? 'expense' : 'expenses'} · '
             'avg ${Formatters.currency(summary.averageExpense)}',
             style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onPrimary.withValues(alpha: 0.85),
+              color: AppColors.onPrimary.withValues(alpha: 0.85),
             ),
           ),
           if (summary.monthlyBudget != null) ...<Widget>[
@@ -75,11 +76,9 @@ class BudgetOverviewCard extends StatelessWidget {
                 value: summary.budgetUsage,
                 minHeight: 10,
                 backgroundColor:
-                    theme.colorScheme.onPrimary.withValues(alpha: 0.22),
+                    AppColors.onPrimary.withValues(alpha: 0.24),
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  summary.isOverBudget
-                      ? theme.colorScheme.error
-                      : theme.colorScheme.secondary,
+                  summary.isOverBudget ? AppColors.danger : AppColors.secondary,
                 ),
               ),
             ),
@@ -91,7 +90,7 @@ class BudgetOverviewCard extends StatelessWidget {
                     '${Formatters.percent(summary.budgetUsage)} of '
                     '${Formatters.currency(summary.monthlyBudget!)}',
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onPrimary.withValues(alpha: 0.85),
+                      color: AppColors.onPrimary.withValues(alpha: 0.85),
                     ),
                   ),
                 ),
@@ -102,7 +101,7 @@ class BudgetOverviewCard extends StatelessWidget {
                           ? '${Formatters.currency(remaining.abs())} over'
                           : '${Formatters.currency(remaining)} left',
                   style: theme.textTheme.labelMedium?.copyWith(
-                    color: theme.colorScheme.onPrimary,
+                    color: AppColors.onPrimary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -128,18 +127,18 @@ class _Badge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: theme.colorScheme.onPrimary.withValues(alpha: 0.16),
+        color: AppColors.onPrimary.withValues(alpha: 0.18),
         borderRadius: BorderRadius.circular(999),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Icon(icon, size: 14, color: theme.colorScheme.onPrimary),
+          Icon(icon, size: 14, color: AppColors.onPrimary),
           const SizedBox(width: 6),
           Text(
             label,
             style: theme.textTheme.labelSmall?.copyWith(
-              color: theme.colorScheme.onPrimary,
+              color: AppColors.onPrimary,
               fontWeight: FontWeight.w600,
             ),
           ),

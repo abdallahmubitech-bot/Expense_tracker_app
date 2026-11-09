@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/formatters.dart';
 
 /// Arrow based month navigation with a reset shortcut.
@@ -38,27 +39,33 @@ class MonthSwitcher extends StatelessWidget {
           onPressed: onPrevious,
           icon: const Icon(Icons.chevron_left_rounded),
           tooltip: 'Previous month',
+          color: AppColors.onPrimary,
         ),
         Expanded(
           child: InkWell(
             onTap: onReset,
             borderRadius: BorderRadius.circular(12),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              child: Column(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     Formatters.monthYear(month),
                     style: theme.textTheme.titleMedium?.copyWith(
-                      color: theme.colorScheme.onPrimary,
+                      color: AppColors.onPrimary,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Text(
-                    canGoForward ? 'Jump to this month' : 'Current month',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: theme.colorScheme.onPrimary.withValues(alpha: 0.8),
+                  if (canGoForward) ...<Widget>[
+                    const SizedBox(width: 8),
+                    Text(
+                      'back to now',
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: AppColors.onPrimary.withValues(alpha: 0.78),
+                      ),
                     ),
-                  ),
+                  ],
                 ],
               ),
             ),
@@ -68,8 +75,8 @@ class MonthSwitcher extends StatelessWidget {
           onPressed: canGoForward ? onNext : null,
           icon: const Icon(Icons.chevron_right_rounded),
           tooltip: 'Next month',
-          disabledColor: theme.colorScheme.onPrimary.withValues(alpha: 0.35),
-          color: theme.colorScheme.onPrimary,
+          disabledColor: AppColors.onPrimary.withValues(alpha: 0.35),
+          color: AppColors.onPrimary,
         ),
       ],
     );
